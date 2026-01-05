@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat UI – Different Way</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+
+<body class="bg-gray-100 h-screen flex justify-center items-center">
+
+<div class="w-full max-w-md h-[650px] bg-white rounded-xl shadow-lg flex">
+
+  <!-- CHAT LIST -->
+  <aside class="w-1/3 border-r">
+    <div class="p-4 font-semibold bg-blue-600 text-white">Chats</div>
+
+    <div class="space-y-1">
+      <div onclick="openChat('mom')" class="p-4 hover:bg-gray-100 cursor-pointer">
+        <h4 class="font-semibold">Mom ❤️</h4>
+        <p class="text-sm text-gray-500">Did you eat?</p>
+      </div>
+
+      <div onclick="openChat('son')" class="p-4 hover:bg-gray-100 cursor-pointer">
+        <h4 class="font-semibold">Son 👦</h4>
+        <p class="text-sm text-gray-500">I'm coming home</p>
+      </div>
+
+      <div onclick="openChat('friends')" class="p-4 hover:bg-gray-100 cursor-pointer">
+        <h4 class="font-semibold">Friends 👥</h4>
+        <p class="text-sm text-gray-500">Plan tonight</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CHAT AREA -->
+  <main class="flex-1 flex flex-col">
+
+    <!-- HEADER -->
+    <div class="p-4 border-b font-semibold" id="chatTitle">
+      Select a chat
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="messages" class="flex-1 p-4 space-y-3 bg-gray-50 overflow-y-auto">
+      <p class="text-gray-400 text-center mt-20">
+        👈 Tap a chat to start conversation
+      </p>
+    </div>
+
+    <!-- INPUT -->
+    <div class="p-3 border-t flex gap-2">
+      <input class="flex-1 border rounded-full px-4 py-2" placeholder="Type message">
+      <button class="bg-blue-600 text-white px-4 rounded-full">Send</button>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+const chats = {
+  mom: {
+    title: "Mom ❤️",
+    messages: [
+      { text: "Did you eat breakfast?", type: "in" },
+      { text: "Yes mom 😊", type: "out" },
+      { text: "Study well ❤️", type: "in" }
+    ]
+  },
+  son: {
+    title: "Son 👦",
+    messages: [
+      { text: "I'm on the way home", type: "in" },
+      { text: "Okay, be safe!", type: "out" }
+    ]
+  },
+  friends: {
+    title: "Friends 👥",
+    messages: [
+      { text: "Movie tonight? 🎬", type: "in" },
+      { text: "I'm coming 🙌", type: "out" },
+      { text: "7 PM confirmed 👍", type: "in" }
+    ]
+  }
+};
+
+function openChat(chatKey) {
+  const chat = chats[chatKey];
+  document.getElementById("chatTitle").innerText = chat.title;
+
+  const messagesDiv = document.getElementById("messages");
+  messagesDiv.innerHTML = "";
+
+  chat.messages.forEach(msg => {
+    const div = document.createElement("div");
+    div.className = msg.type === "out"
+      ? "bg-blue-500 text-white p-3 rounded-lg w-fit ml-auto"
+      : "bg-white p-3 rounded-lg w-fit";
+
+    div.innerText = msg.text;
+    messagesDiv.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
